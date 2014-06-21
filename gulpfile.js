@@ -45,7 +45,7 @@ gulp.task('images', function () {
       interlaced: true
     })))
     .pipe(gulp.dest('dist/images'))
-    .pipe(reload({stream: true}))
+    .pipe(reload({stream: true, once: true}))
     .pipe($.size({title: 'images'}));
 });
 
@@ -53,7 +53,7 @@ gulp.task('images', function () {
 gulp.task('styles:css', function () {
   return gulp.src('app/styles/**/*.css')
     .pipe($.autoprefixer('last 1 version'))
-    .pipe(gulp.dest('app/styles'))
+    .pipe(gulp.dest('app/csstemp'))
     .pipe(reload({stream: true}))
     .pipe($.size({title: 'styles:css'}));
 });
@@ -67,7 +67,7 @@ gulp.task('styles:components', function () {
       loadPath: ['app/styles/components']
     }))
     .pipe($.autoprefixer('last 1 version'))
-    .pipe(gulp.dest('app/styles/components'))
+    .pipe(gulp.dest('app/components'))
     .pipe($.size({title: 'styles:components'}));
 });
 
@@ -95,7 +95,7 @@ gulp.task('html', function () {
     .pipe($.if('*.js', $.uglify()))
     // Concatenate And Minify Styles
     .pipe($.if('*.css', $.csso()))
-    // Remove Any Unused CSS
+    // Remove Any UnusedC SS
     // Note: If not using the Style Guide, you can delete it from
     // the next line to only include styles your project uses.
     .pipe($.if('*.css', $.uncss({ html: ['app/index.html','app/styleguide/index.html'] })))
